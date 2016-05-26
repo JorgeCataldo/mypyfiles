@@ -7,20 +7,8 @@ Created on Wed May 11 19:17:57 2016
 
 from collections import namedtuple, defaultdict
 
+#caminho para gravação dos dados
 DATA_PATH = "./data/"
-
-#importação de txt 
-with open(DATA_PATH + "nomes.txt", "r") as nomes:
-    n = list()                              #cria uma lista n
-    for i in nomes:                         #percorre as linhas de nomes.txt
-        n.append(i)                         #adiciona à lista
-        print(i)
-    
-    for x in n[::-1]:                      #pecorre lista na ordem inversa
-        print(x)
-
-#---------------------------------------------------------------------
-#IMPORTA DE UMA BASE SQL
 
 #carrega o método da biblioteca 
 from sqlalchemy import create_engine
@@ -29,7 +17,7 @@ from sqlalchemy import create_engine
 conn = "mysql+pymysql://inf2290:^inf2290$@mysql.mosconi.eti.br/cartola"
 engine = create_engine(conn)
 
-#monta a string de busca sql 
+#string de busca sql language
 atleta_sql='''
 SELECT 
     at.atleta_id AS player,
@@ -48,7 +36,6 @@ for row in engine.execute(atleta_sql):
     atleta = dict(row)                          # monta um dicinário 
     print(atleta['price'], atleta['nickname'])
 
-
 # importa dados para uma tupla
 Atleta = namedtuple("Atleta", "Id Nome")
 Clube = namedtuple("Clube", "Id Nome")
@@ -64,7 +51,6 @@ for row in engine.execute('select * from clube'):
 movAtleta = defaultdict(list)
 for row in engine.execute('select * from atleta_rodada_2015'):
     movAtleta[atletas[row[1]]].append(clubes[row[3]])
-    
     
 #importa dados para uma lista
 atletas = []
@@ -151,11 +137,7 @@ def Relatorio(jogador_id):
     pylab.ylabel('Preço/Pontos')
     pylab.title(("{0} - {1}").format(atletas[jogador_id].Id, atletas[jogador_id].Nome))
     
-    
-import random                                    #módulo randômico
-random.seed(0)                                   #
-print(random.random())
-print(random.choice([1, 2, 3, 4, 5, 6]))
+
         
     
     

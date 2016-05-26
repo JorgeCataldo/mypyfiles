@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import math
+
+math.
+
+class P:
+    def __init__(self):
+        self.casa = "casa"
+        pass
+
+    def endereco(self):
+        return self.casa
+    
+p = P()
+p.casa
+c = p.endereco
+
+from math import pi
+
+pi
+
+
+
+try:
+    from gurobipy import *
+except ImportError as e:
+    print(e.msg)
+
+try:
+
+    # Create a new model
+    m = Model("mip1")
+
+    # Create variables
+    x = m.addVar(vtype=GRB.BINARY, name="x")
+    y = m.addVar(vtype=GRB.BINARY, name="y")
+    z = m.addVar(vtype=GRB.BINARY, name="z")
+
+    # Integrate new variables
+    m.update()
+
+    # Set objective
+    m.setObjective(x + y + 2 * z, GRB.MAXIMIZE)
+
+    # Add constraint: x + 2 y + 3 z <= 4
+    m.addConstr(x + 2 * y + 3 * z <= 4, "c0")
+
+    # Add constraint: x + y >= 1
+    m.addConstr(x + y >= 1, "c1")
+
+    m.optimize()
+
+    for v in m.getVars():
+        print(v.varName, v.x)
+
+    print('Obj:', m.objVal)
+
+except GurobiError:
+    print('Error reported')
